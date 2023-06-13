@@ -1,2 +1,3 @@
 rootProject.name = 'spring-core-demo'
-include("spring-boot-example", "spring-context-example")
+findProject("spring-boot-example")
+findProject("spring-context-example")
