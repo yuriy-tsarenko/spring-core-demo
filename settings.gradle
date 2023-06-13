@@ -1,2 +1,2 @@
 rootProject.name = 'spring-core-demo'
-
+include("spring-boot-example", "spring-context-example")
