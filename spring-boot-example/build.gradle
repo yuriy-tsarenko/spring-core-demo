@@ -1,7 +1,7 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.1.0'
-	id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.1.0'
+    id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'com.go.it'
@@ -9,20 +9,36 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	compileOnly 'org.projectlombok:lombok:1.18.26'
-	annotationProcessor 'org.projectlombok:lombok:1.18.26'
-	implementation 'com.mysql:mysql-connector-j:8.0.32'
-	implementation 'org.jetbrains:annotations:24.0.1'
-	implementation 'org.flywaydb:flyway-core:9.17.0'
-	implementation 'org.flywaydb:flyway-mysql:9.17.0'
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    implementation 'com.mysql:mysql-connector-j:8.0.32'
+    implementation 'org.jetbrains:annotations:24.0.1'
+    implementation 'org.flywaydb:flyway-core:9.17.0'
+    implementation 'org.flywaydb:flyway-mysql:9.17.0'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.hibernate.orm:hibernate-core:6.2.3.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.1.0'
+    implementation('org.reflections:reflections:0.10.2') {
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'com.h2database:h2:2.1.214'
+	testCompileOnly 'org.projectlombok:lombok:1.18.26'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.go.it.spring.SpringDemoApplication'
+    }
+    from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
