@@ -65,21 +65,6 @@ public abstract class HibernateAbstractRepository<T, ID> {
         });
     }
 
-    public TransactionalResult<T> findByIdTransactional(ID id) {
-        return dbCall(datasource, session -> {
-            String queryString = join(" ", selectTemplate, whereTemplate);
-            Query<T> query = session.createQuery(queryString, entityType);
-            query.setParameter("id", id);
-            T result;
-            try {
-                result = query.getSingleResult();
-            } catch (Exception e) {
-                log.warn("No results found", e);
-                result = null;
-            }
-            return TransactionalResult.of(session, session.getTransaction(), result);
-        });
-    }
 
     public T save(T entity) {
         return dbCall(datasource, session -> save(entity, session));

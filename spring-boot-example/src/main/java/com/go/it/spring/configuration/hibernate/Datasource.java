@@ -30,14 +30,6 @@ public class Datasource {
         return session;
     }
 
-    public Session currentSession() {
-        return session;
-    }
-
-    public boolean hasActiveSession() {
-        return Objects.nonNull(session) && session.isOpen();
-    }
-
     private SessionFactory createSessionFactory() {
         final ClassLoaderService classLoaderService = new ClassLoaderServiceImpl(getClass().getClassLoader());
         return configuration.buildSessionFactory(
